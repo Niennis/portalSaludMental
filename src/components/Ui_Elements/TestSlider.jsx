@@ -37,8 +37,8 @@ const TestSlider = ({ slides }) => {
   }
 
   const dotStyles = {
-    margin: '0 3px',
-    cursor: 'pointer',
+    margin: '0 8px',
+    cursor: 'pointer'
     // color: '#fff'
   }
 
@@ -61,20 +61,24 @@ const TestSlider = ({ slides }) => {
       {/* <TestCard test={slides} /> */}
       <div style={sliderStyles}>
         <Box sx={{
-          height: '45svh',
+          // height: '45svh',
           width: '90svw',
           borderRadius: '32px',
           // padding: '24px 16px',
           textWrap: 'pretty',
-          margin: '36px auto 0'
+          margin: '0 auto'
         }}>
           <div className="row" >
             <div className="col-sm-12 sailec" style={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
-              <Card sx={{boxShadow: 0, border: '1px solid #A6A6A6', borderRadius: '12px', width:'100%', margin:0}}>
+              <Card sx={{ boxShadow: 0, border: '1px solid #A6A6A6', borderRadius: '12px', width: '100%', margin: 0 }}>
                 <CardHeader
                   title={selectedSlide.title}
-                  subheader={selectedSlide.category}
-                  sx={{bgcolor: '#FF5253', color: 'white'}}
+                  subheader={
+                    <Typography variant="body2" color="text.secondary" sx={{ color: 'white' }}>
+                      {(selectedSlide.category)}
+                    </Typography>
+                  }
+                  sx={{ bgcolor: '#FF5253', color: 'white' }}
                 />
                 <CardMedia
                   component="img"
@@ -84,7 +88,7 @@ const TestSlider = ({ slides }) => {
                 />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
-                    {(selectedSlide.content).slice(0,60)}
+                    {(selectedSlide.content).slice(0, 60)}
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -117,7 +121,7 @@ const TestSlider = ({ slides }) => {
               style={dotStyles}
               onClick={() => goToSlide(slideIndex)}
             >
-              <CircleRounded sx={{ fontSize: 10, color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
+              <CircleRounded sx={{ fontSize: '16px', margin:'24px 0', color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
             </div>
           ))}
         </div>

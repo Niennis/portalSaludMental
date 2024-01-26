@@ -54,11 +54,11 @@ const ImageSlider = ({ slides }) => {
 
   const dotsContainerStyles = {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 
   const dotStyles = {
-    margin: '0 3px',
+    margin: '0 8px',
     cursor: 'pointer',
     // color: '#fff'
   }
@@ -86,8 +86,6 @@ const ImageSlider = ({ slides }) => {
   }
 
   const goToSlide = slideIndex => {
-    console.log('hola', slideIndex);
-    console.log('chao', slides[slideIndex].title);
     setCurrentIndex(slideIndex)
     setTitle(slides[slideIndex].title)
     setContent(slides[slideIndex].content)
@@ -111,7 +109,6 @@ const ImageSlider = ({ slides }) => {
       </div>
       <Box sx={{
         border: '1px solid #333',
-        height: '43svh',
         width: '90svw',
         borderRadius: '32px',
         padding: '24px 16px',
@@ -119,9 +116,9 @@ const ImageSlider = ({ slides }) => {
         margin: '36px auto 0'
       }}>
         <div className="row" >
-          <div className="col-sm-12 sailec" style={{fontSize: '24px', fontWeight:400, lineHeight:'32px'}}>
-            <h2>{title}</h2>
-            <p>{content.slice(0, 205)}</p>
+          <div className="col-sm-12 sailec">
+            <h2 style={{fontSize: '40px', fontWeight:700, lineHeight:'40px'}}>{title}</h2>
+            <p style={{fontSize: '24px', fontWeight:400, lineHeight:'32px'}}>{content.slice(0, 205)}</p>
             <Grid
               container
               direction="row"
@@ -148,7 +145,7 @@ const ImageSlider = ({ slides }) => {
             style={dotStyles}
             onClick={() => goToSlide(slideIndex)}
           >
-            <CircleRounded sx={{ fontSize: 10, color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
+            <CircleRounded sx={{ fontSize: '16px', margin:'24px 0', color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
           </div>
         ))}
       </div>
