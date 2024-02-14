@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import Header from "../Header";
+import Headerudp from "../Headerudp";
 import Sidebar from "../Sidebar";
 import { Link, useParams } from "react-router-dom";
 import { favicon, imagesend } from "../imagepath";
@@ -85,7 +85,7 @@ const EditDoctor = () => {
 
   return (
     <div>
-      <Header />
+      <Headerudp />
       <Sidebar
         id="menu-item1"
         id1="menu-items1"
@@ -100,14 +100,14 @@ const EditDoctor = () => {
                 <div className="col-sm-12">
                   <ul className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to="#">Doctors </Link>
+                      <Link to="#">Profesionales </Link>
                     </li>
                     <li className="breadcrumb-item">
                       <i className="feather-chevron-right">
                         <FeatherIcon icon="chevron-right" />
                       </i>
                     </li>
-                    <li className="breadcrumb-item active">Edit Doctor</li>
+                    <li className="breadcrumb-item active">Editar Profesional</li>
                   </ul>
                 </div>
               </div>
@@ -121,7 +121,7 @@ const EditDoctor = () => {
                       <div className="row">
                         <div className="col-12">
                           <div className="form-heading">
-                            <h4>Detalles del Doctor</h4>
+                            <h4>Detalles del Profesional</h4>
                           </div>
                         </div>
                         <div className="col-12 col-md-6 col-xl-6">
@@ -211,7 +211,7 @@ const EditDoctor = () => {
 
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-6">
+                        {/* <div className="col-12 col-md-6 col-xl-6">
                           <div className="form-group local-forms">
                             <label>
                               Contraseña <span className="login-danger">*</span>
@@ -256,7 +256,7 @@ const EditDoctor = () => {
                             {errors.confirmPassword && <span><small>{errors.confirmPassword.message}</small></span>}
 
                           </div>
-                        </div>
+                        </div> */}
                         <div className="col-12 col-md-6 col-xl-6">
                           <div className="form-group local-forms cal-icon">
                             <label>

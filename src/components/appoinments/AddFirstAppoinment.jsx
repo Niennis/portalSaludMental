@@ -17,7 +17,7 @@ import { fetchDoctors } from "../../services/DoctorsServices";
 import { fetchUsers } from "../../services/UsersServices";
 import { createAppointment } from "../../services/AppointmentsServices"
 
-const AddAppoinments = () => {
+const AddFirstAppoinments = () => {
   const { register, handleSubmit, watch, control,
     formState: { errors }
   } = useForm()
@@ -89,6 +89,13 @@ const AddAppoinments = () => {
       setOpen(false)
     }
   })
+  const [gender, setGender] = useState([
+    { value: 1, label: "Femenino" },
+    { value: 2, label: "Masculino" },
+    { value: 3, label: "No binario" },
+    { value: 4, label: "Otro" },
+    { value: 5, label: "Prefiero no decir" }
+  ]);
 
   const [career, setCareer] = useState([
     { value: 2, label: "Antropologia" },
@@ -96,13 +103,6 @@ const AddAppoinments = () => {
     { value: 4, label: "Contador" },
     { value: 5, label: "Derecho" },
     { value: 6, label: "Ingenieria" },
-  ]);
-  const [gender, setGender] = useState([
-    { value: 1, label: "Femenino" },
-    { value: 2, label: "Masculino" },
-    { value: 3, label: "No binario" },
-    { value: 4, label: "Otro" },
-    { value: 5, label: "Prefiero no decir" }
   ]);
 
   return (
@@ -112,7 +112,7 @@ const AddAppoinments = () => {
       <Sidebar
         id="menu-item4"
         id1="menu-items4"
-        activeClassName="add-appoinment"
+        activeClassName="add-first-appoinment"
       />
       <>
         <div className="page-wrapper">
@@ -130,7 +130,7 @@ const AddAppoinments = () => {
                         <FeatherIcon icon="chevron-right" />
                       </i>
                     </li>
-                    <li className="breadcrumb-item active">Agendar Cita</li>
+                    <li className="breadcrumb-item active">Agendar Entrevista</li>
                   </ul>
                 </div>
               </div>
@@ -146,31 +146,6 @@ const AddAppoinments = () => {
                         <div className="col-12">
                           <div className="form-heading">
                             <h4>Detalles del Paciente</h4>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-12 col-md-6 col-xl-6">
-                            <div className="form-group local-forms">
-                              <label>
-                                Correo electrónico <span className="login-danger">*</span>
-                              </label>
-                              <input
-                                className="form-control"
-                                type="email"
-                                {...register('email', {
-                                  required: {
-                                    value: true,
-                                    message: 'Correo es requerido'
-                                  },
-                                  pattern: {
-                                    value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
-                                    message: 'Correo no es válido'
-                                  }
-                                })}
-                              />
-                              {errors.email && <span><small>{errors.email.message}</small></span>}
-
-                            </div>
                           </div>
                         </div>
                         <div className="col-12 col-md-6 col-xl-6">
@@ -357,6 +332,29 @@ const AddAppoinments = () => {
                         <div className="col-12 col-md-6 col-xl-4">
                           <div className="form-group local-forms">
                             <label>
+                              Correo electrónico <span className="login-danger">*</span>
+                            </label>
+                            <input
+                              className="form-control"
+                              type="email"
+                              {...register('email', {
+                                required: {
+                                  value: true,
+                                  message: 'Correo es requerido'
+                                },
+                                pattern: {
+                                  value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
+                                  message: 'Correo no es válido'
+                                }
+                              })}
+                            />
+                            {errors.email && <span><small>{errors.email.message}</small></span>}
+
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6 col-xl-4">
+                          <div className="form-group local-forms">
+                            <label>
                               Teléfono <span className="login-danger">*</span>
                             </label>
                             <input
@@ -372,8 +370,8 @@ const AddAppoinments = () => {
                             <label>Carrera</label>
                             <Controller
                               control={control}
-                              name="career"
-                              {...register('career', {
+                              name="doctor"
+                              {...register('doctor', {
                                 required: {
                                   value: true,
                                   message: 'Especialista es requerido',
@@ -384,7 +382,7 @@ const AddAppoinments = () => {
                                 <Select
                                   defaultValue={selectedOption}
                                   onChange={onChange}
-                                  options={career}
+                                  options={doctor}
                                   menuPortalTarget={document.body}
                                   styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
                                   id="search-commodity"
@@ -1553,4 +1551,4 @@ const AddAppoinments = () => {
   );
 };
 
-export default AddAppoinments;
+export default AddFirstAppoinments;

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import Header from '../Header';
+import Headerudp from '../Headerudp';
 import Sidebar from '../Sidebar';
 import {Link } from 'react-router-dom';
 import { DatePicker} from 'antd';
@@ -26,7 +26,7 @@ const AddSchedule = () => {
 
   return (
     <div>
-        <Header />
+        <Headerudp />
         <Sidebar id='menu-item5' id1='menu-items5' activeClassName='add-shedule'/>
         <>
   <div className="page-wrapper">

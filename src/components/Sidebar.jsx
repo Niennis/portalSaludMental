@@ -49,8 +49,7 @@ const Sidebar = (props) => {
               onMouseOver={expandMenuOpen}
             >
               <ul>
-                <li className="menu-title">Main</li>
-                <li className="submenu" >
+                {/* <li className="submenu" >
                   <Link to="#" id="menu-item" onClick={(e) => {
 
                     handleClick(e, "menu-item", "menu-items")
@@ -71,7 +70,7 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'patient-dashboard' ? 'active' : ''} to="/patient-dashboard">Dashboard Pacientes</Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 <li className="submenu">
                   <Link to="#" id="menu-item1" onClick={(e) => {
                     // setSidebar('Doctors')
@@ -80,20 +79,20 @@ const Sidebar = (props) => {
                     <span className="menu-side">
                       <img src={doctor} alt="" />
                     </span>{" "}
-                    <span> Doctores </span> <span className="menu-arrow" />
+                    <span> Profesionales </span> <span className="menu-arrow" />
                   </Link>
                   <ul style={{ display: sidebar === 'Doctors' ? 'block' : 'none' }} className="menu-items1">
                     <li>
-                      <Link className={props?.activeClassName === 'doctor-list' ? 'active' : ''} to="/doctorlist">Lista de Doctores</Link>
+                      <Link className={props?.activeClassName === 'doctor-list' ? 'active' : ''} to="/doctorlist">Lista de Profesionales</Link>
                     </li>
                     <li>
-                      <Link className={props?.activeClassName === 'add-doctor' ? 'active' : ''} to="/add-doctor">Agregar Doctor</Link>
+                      <Link className={props?.activeClassName === 'add-doctor' ? 'active' : ''} to="/add-doctor">Agregar Profesional</Link>
                     </li>
                     {/* <li>
                       <Link className={props?.activeClassName === 'edit-doctor' ? 'active' : ''} to="/editdoctor">Editar Doctor</Link>
                     </li> */}
                     <li>
-                      <Link className={props?.activeClassName === 'doctor-profile' ? 'active' : ''} to="/doctorprofile">Perfil Doctor</Link>
+                      <Link className={props?.activeClassName === 'doctor-profile' ? 'active' : ''} to="/doctorprofile">Perfil Profesional</Link>
                     </li>
                   </ul>
                 </li>
@@ -160,6 +159,9 @@ const Sidebar = (props) => {
                     </li>
                     <li>
                       <Link className={props?.activeClassName === 'add-appoinment' ? 'active' : ''} to="/addappoinments">Agregar Cita</Link>
+                    </li>
+                    <li>
+                      <Link className={props?.activeClassName === 'add-first-appoinment' ? 'active' : ''} to="/addfirstappoinment">Agregar Entrevista</Link>
                     </li>
                     {/* <li>
                       <Link className={props?.activeClassName === 'edit-appoinment' ? 'active' : ''} to="/editappoinments">Edit Appointment</Link>
@@ -245,15 +247,15 @@ const Sidebar = (props) => {
                     </li>
                   </ul>
                 </li> */}
-                <li>
+                {/* <li>
                   <Link className={props?.activeClassName === 'chat' ? 'active' : ''} to="/chat">
                     <span className="menu-side">
                       <img src={menuicon10} alt="" />
                     </span>{" "}
                     <span>Chat</span>
                   </Link>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item9" onClick={(e) => handleClick(e, "menu-item9", "menu-items9")}>
                     <span className="menu-side">
                       <img src={menuicon11} alt="" />
@@ -271,8 +273,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'incoming-call' ? 'active' : ''} to="/incoming-call">Incoming Call</Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item10" onClick={(e) => handleClick(e, "menu-item10", "menu-items10")}>
                     <span className="menu-side">
                       <img src={menuicon12} alt="" />
@@ -290,8 +292,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'mail-view' ? 'active' : ''} to="/mail-view">Mail View</Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item11" onClick={(e) => handleClick(e, "menu-item11", "menu-items11")}>
                     <span className="menu-side">
                       <img src={blog} alt="" />
@@ -314,8 +316,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'edit-blog' ? 'active' : ''} to="/editblog">Edit Blog</Link>
                     </li>
                   </ul>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <Link className={props?.activeClassName === 'assests' ? 'active' : ''} to="/assests">
                     <i className="fa fa-cube" /> <span>Assets</span>
                   </Link>
@@ -327,8 +329,8 @@ const Sidebar = (props) => {
                     </span>{" "}
                     <span>Activities</span>
                   </Link>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item12" onClick={(e) => handleClick(e, "menu-item12", "menu-items12")}>
                     <i className="fa fa-flag" /> <span> Reports </span>{" "}
                     <span className="menu-arrow" />
@@ -341,8 +343,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'invoice-report' ? 'active' : ''} to="/invoice-report"> Invoice Report </Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item13" onClick={(e) => handleClick(e, "menu-item13", "menu-items13")}>
                     <span className="menu-side">
                       <img src={menuicon15} alt="" />
@@ -369,17 +371,17 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'invoice-settings' ? 'active' : ''} to="/invoice-settings"> Invoices Settings</Link>
                     </li>
                   </ul>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <Link to="/settings">
                     <span className="menu-side">
                       <img src={menuicon16} alt="" />
                     </span>{" "}
                     <span>Settings</span>
                   </Link>
-                </li>
-                <li className="menu-title">UI Elements</li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="menu-title">UI Elements</li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item14" onClick={(e) => handleClick(e, "menu-item14", "menu-items14")}>
                     <i className="fa fa-laptop" /> <span> Components</span>{" "}
                     <span className="menu-arrow" />
@@ -395,8 +397,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'tabs' ? 'active' : ''} to="/tab">Tabs</Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item15" onClick={(e) => handleClick(e, "menu-item15", "menu-items15")}>
                     <i className="fa fa-edit" /> <span> Forms</span>{" "}
                     <span className="menu-arrow" />
@@ -415,8 +417,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'vertical-form' ? 'active' : ''} to="/vertical-form">Vertical Form</Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item16" onClick={(e) => handleClick(e, "menu-item16", "menu-items16")}>
                     <i className="fa fa-table" /> <span> Tables</span>{" "}
                     <span className="menu-arrow" />
@@ -429,14 +431,14 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'data-table' ? 'active' : ''} to="/data-table">Data Table</Link>
                     </li>
                   </ul>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <Link className={props?.activeClassName === 'calendar' ? 'active' : ''} to="/calender">
                     <i className="fa fa-calendar" /> <span>Calendar</span>
                   </Link>
-                </li>
-                <li className="menu-title">Extras</li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="menu-title">Extras</li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item17" onClick={(e) => handleClick(e, "menu-item17", "menu-items17")}>
                     <i className="fa fa-columns" /> <span>Pages</span>{" "}
                     <span className="menu-arrow" />
@@ -473,8 +475,8 @@ const Sidebar = (props) => {
                       <Link className={props?.activeClassName === 'blank-page' ? 'active' : ''} to="/blankpage"> Blank Page </Link>
                     </li>
                   </ul>
-                </li>
-                <li className="submenu">
+                </li> */}
+                {/* <li className="submenu">
                   <Link to="#" id="menu-item18" onClick={(e) => handleClick(e, "menu-item18", "menu-items18")}>
                     <i className="fa fa-share-alt" /> <span>Multi Level</span>{" "}
                     <span className="menu-arrow" />
@@ -517,7 +519,7 @@ const Sidebar = (props) => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
               </ul>
               <div className="logout-btn">
                 <Link to="/login">

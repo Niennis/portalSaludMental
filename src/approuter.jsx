@@ -34,6 +34,7 @@ import EditPatients from "./components/patients/EditPatients";
 import PatientsProfile from "./components/patients/PatientsProfile";
 import AppoinmentList from "./components/appoinments/AppoinmentList";
 import AddAppoinments from "./components/appoinments/AddAppoinments";
+import AddFirstAppoinment from "./components/appoinments/AddFirstAppoinment";
 import EditAppoinments from "./components/appoinments/EditAppoinments";
 //DoctorSchedule
 import ScheduleList from "./components/doctorschedule/ScheduleList";
@@ -126,33 +127,67 @@ import Payslip from "./components/Payroll/Payslip";
 import Setting from "./components/settings/Setting";
 import GalleryImage from "./components/pages/Gallery/Gallery";
 import HomePage from "./components/pages/login/HomePage";
-
+import FormIngreso from "./components/pages/login/FormIngreso";
 //Accounts
 const Approuter = () => {
   // eslint-disable-next-line no-unused-vars
   // const config = "/react/template"
   return (
     <>
-      <BrowserRouter basename="/">
+      {/* <BrowserRouter basename="/"> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/form" element={<FormIngreso />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/lockscreen" element={<LockScreen />} />
-          <Route path="/changepassword" element={<ChangePassword />} />
-          <Route path="/error" element={<Error />} />
-          <Route path="/server-error" element={<ServerError />} />
-          <Route path="/blankpage" element={<BlankPage />} />
-          <Route path="/gallery" element={<GalleryImage />} />
+          {/* Doctor  */}
+          <Route path="/doctorlist" element={<DoctorList />} />
+          <Route path="/add-doctor" element={<AddDoctor />} />
+          <Route path="/editdoctor/:id" element={<EditDoctor />} />
+          <Route path="/doctorprofile" element={<DoctorProfile />} />
+          <Route path="/doctor-setting" element={<Doctor_Settings />} />
+          {/* Patients */}
+          <Route path="/patientslist" element={<PatientsList />} />
+          <Route path="/addpatients" element={<AddPatients />} />
+          <Route path="/editpatients/:id" element={<EditPatients />} />
+          <Route path="/patientsprofile" element={<PatientsProfile />} />
+          <Route path="/patient-settings" element={<Patient_Settings />} />
+          {/* Appoinments */}
+          <Route path="/appoinmentlist" element={<AppoinmentList />} />
+          <Route path="/addappoinments" element={<AddAppoinments />} />
+          <Route path="/addfirstappoinment" element={<AddFirstAppoinment />} />
+          <Route path="/editappoinments/:id" element={<EditAppoinments />} />
+          {/* DoctorSchedule */}
+          <Route path="/schedulelist" element={<ScheduleList />} />
+          <Route path="/addschedule" element={<AddSchedule />} />
+          <Route path="/editschedule/:id" element={<EditSchedule />} />
+          {/* Calender */}
+          <Route path="/calender" element={<Calender />} />
+          {/* Dashboard */}
+          <Route path="/admin-dashboard" element={<Admin_Dashboard />} />
+          <Route path="/doctor-dashboard" element={<Doctor_Dashboard />} />
+          <Route path="/patient-dashboard" element={<Patient_Dashboard />} />
           {/* Blog */}
           <Route path="/blog/:id" element={<Blogdetails />} />
           <Route path="/addblog" element={<Addblog />} />
           <Route path="/editblog" element={<Editblog />} />
           <Route path="/blogview" element={<BlogView />} />
+
+
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+
+
+          <Route path="/error" element={<Error />} />
+
+
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/lockscreen" element={<LockScreen />} />
+          <Route path="/server-error" element={<ServerError />} />
+          <Route path="/blankpage" element={<BlankPage />} />
+          <Route path="/gallery" element={<GalleryImage />} />
           {/* Settings */}
           <Route path="/settings" element={<Setting />} />
           <Route path="/localization" element={<Localization />} />
@@ -174,26 +209,7 @@ const Approuter = () => {
           <Route path="/assests" element={<Assests />} />
           <Route path="/addasset" element={<AddAsset />} />
           <Route path="/edit-assets" element={<Edit_Assets />} />
-          {/* Doctor  */}
-          <Route path="/doctorlist" element={<DoctorList />} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
-          <Route path="/editdoctor/:id" element={<EditDoctor />} />
-          <Route path="/doctorprofile" element={<DoctorProfile />} />
-          <Route path="/doctor-setting" element={<Doctor_Settings />} />
-          {/* Patients */}
-          <Route path="/patientslist" element={<PatientsList />} />
-          <Route path="/addpatients" element={<AddPatients />} />
-          <Route path="/editpatients/:id" element={<EditPatients />} />
-          <Route path="/patientsprofile" element={<PatientsProfile />} />
-          <Route path="/patient-settings" element={<Patient_Settings />} />
-          {/* Appoinments */}
-          <Route path="/appoinmentlist" element={<AppoinmentList />} />
-          <Route path="/addappoinments" element={<AddAppoinments />} />
-          <Route path="/editappoinments/:id" element={<EditAppoinments />} />
-          {/* DoctorSchedule */}
-          <Route path="/schedulelist" element={<ScheduleList />} />
-          <Route path="/addschedule" element={<AddSchedule />} />
-          <Route path="/editschedule/:id" element={<EditSchedule />} />
+
           {/* Department */}
           <Route path="/departmentlist" element={<DepartmentList />} />
           <Route path="/add-department" element={<AddDepartment />} />
@@ -274,15 +290,10 @@ const Approuter = () => {
           {/* Tables */}
           <Route path="/basic-table" element={<BasicTable />} />
           <Route path="/data-table" element={<DataTable />} />
-          {/* Calender */}
-          <Route path="/calender" element={<Calender />} />
-          {/* Dashboard */}
-          <Route path="/admin-dashboard" element={<Admin_Dashboard />} />
-          <Route path="/doctor-dashboard" element={<Doctor_Dashboard />} />
-          <Route path="/patient-dashboard" element={<Patient_Dashboard />} />
+
         </Routes>
-      </BrowserRouter>
-      <div className="sidebar-overlay"></div>
+      {/* </BrowserRouter> */}
+      {/* <div className="sidebar-overlay"></div> */}
     </>
   );
 };

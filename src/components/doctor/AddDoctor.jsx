@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import Header from "../Header";
+import Headerudp from "../Headerudp";
 import Sidebar from "../Sidebar";
 import { DatePicker } from "antd";
 import Select from "react-select";
 import { Link } from 'react-router-dom';
 import FeatherIcon from "feather-icons-react/build/FeatherIcon";
 import { useForm, Controller } from 'react-hook-form';
+import { TextField, Alert } from "@mui/material";
 
 import { addDoctor } from "../../services/DoctorsServices";
 
@@ -19,10 +20,11 @@ const AddDoctor = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [dataDoctor, setDataDoctor] = useState(null)
-  const [statusPetition, setStatusPetition] = useState({
-    warning: false,
-    success: false
-  })
+  const [success, setSuccess] = useState('initial')
+  // const [statusPetition, setStatusPetition] = useState({
+  //   warning: false,
+  //   success: false
+  // })
   const [options, setOptions] = useState([
     { value: 1, label: "Select City" },
     { value: 2, label: "Alaska" },
@@ -38,6 +40,13 @@ const AddDoctor = () => {
     { value: 1, label: "Select City" },
     { value: 2, label: "Alaska" },
     { value: 3, label: "California" },
+  ]);
+  const [gender, setGender] = useState([
+    { value: 1, label: "Femenino" },
+    { value: 2, label: "Masculino" },
+    { value: 3, label: "No binario" },
+    { value: 4, label: "Otro" },
+    { value: 5, label: "Prefiero no decir" }
   ]);
 
   const [department, setDepartment] = useState([
@@ -55,6 +64,7 @@ const AddDoctor = () => {
   };
 
   const onSubmit = handleSubmit( async data => {
+    setSuccess('initial')
     console.log('error', errors)
     if (data) {
       console.log('data', data)
@@ -62,10 +72,12 @@ const AddDoctor = () => {
       try {
         const response = await addDoctor(data)
         console.log(response)
-        if(response.err) setStatusPetition(prevState => ({...prevState, warning: true}))
-        else setStatusPetition(prevState => ({...prevState, success: true}))
+        // if(response.err) setStatusPetition(prevState => ({...prevState, warning: true}))
+        // else setStatusPetition(prevState => ({...prevState, success: true}))
+        setSuccess('success')
       } catch(err) {
-        console.log('CATCH', err)
+        console.log('ERR', err)
+        setSuccess('fail')
       }
       
     } else {
@@ -80,7 +92,7 @@ const AddDoctor = () => {
 
   return (
     <div>
-      <Header />
+      <Headerudp />
       <Sidebar id="menu-item1" id1="menu-items1" activeClassName="add-doctor" />
       <>
         <div className="page-wrapper">
@@ -91,14 +103,14 @@ const AddDoctor = () => {
                 <div className="col-sm-12">
                   <ul className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to="#">Médicos </Link>
+                      <Link to="#">Profesionales </Link>
                     </li>
                     <li className="breadcrumb-item">
                       <i className="feather-chevron-right">
                         <FeatherIcon icon="chevron-right" />
                       </i>
                     </li>
-                    <li className="breadcrumb-item active">Agregar Médico</li>
+                    <li className="breadcrumb-item active">Agregar Profesionales</li>
                   </ul>
                 </div>
               </div>
@@ -112,10 +124,10 @@ const AddDoctor = () => {
                       <div className="row">
                         <div className="col-12">
                           <div className="form-heading">
-                            <h4>Detalles del Médico</h4>
+                            <h4>Detalles del Profesional</h4>
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-4">
+                        <div className="col-12 col-md-6 col-xl-6">
                           <div className="form-group local-forms">
                             <label>
                               Nombre <span className="login-danger">*</span>
@@ -140,7 +152,7 @@ const AddDoctor = () => {
                             }
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-4">
+                        <div className="col-12 col-md-6 col-xl-6">
                           <div className="form-group local-forms">
                             <label>
                               Apellido <span className="login-danger">*</span>
@@ -163,18 +175,6 @@ const AddDoctor = () => {
                             {
                               errors.lastName && <span><small>{errors.lastName.message}</small></span>
                             }
-                          </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-xl-4">
-                          <div className="form-group local-forms">
-                            <label>
-                              Nombre de Usuario <span className="login-danger">*</span>
-                            </label>
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder=""
-                            />
                           </div>
                         </div>
                         <div className="col-12 col-md-6 col-xl-6">
@@ -443,7 +443,7 @@ const AddDoctor = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-3">
+                        <div className="col-12 col-md-6 col-xl-4">
                           <div className="form-group local-forms">
                             <label>
                               Ciudad <span className="login-danger">*</span>
@@ -483,7 +483,7 @@ const AddDoctor = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-3">
+                        <div className="col-12 col-md-6 col-xl-4">
                           <div className="form-group local-forms">
                             <label>
                               País <span className="login-danger">*</span>
@@ -524,7 +524,7 @@ const AddDoctor = () => {
 
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-3">
+                        <div className="col-12 col-md-6 col-xl-4">
                           <div className="form-group local-forms">
                             <label>
                               Región {" "}
@@ -566,20 +566,7 @@ const AddDoctor = () => {
 
                           </div>
                         </div>
-                        <div className="col-12 col-md-6 col-xl-3">
-                          <div className="form-group local-forms">
-                            <label>
-                              Código postal {" "}
-                              <span className="login-danger">*</span>
-                            </label>
-                            <input
-                              className="form-control"
-                              type="text"
-                              placeholder=""
-                            />
-                          </div>
-                        </div>
-                        <div className="col-12 col-sm-12">
+                        {/* <div className="col-12 col-sm-12">
                           <div className="form-group local-forms">
                             <label>
                               Biografía{" "}
@@ -592,10 +579,10 @@ const AddDoctor = () => {
                               defaultValue={""}
                             />
                           </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-xl-6">
-                          <div className="form-group local-top-form">
-                            <label className="local-top">
+                        </div> */}
+                        {/* <div className="col-12 col-md-6 col-xl-6">
+                          <div className="form-group local-top-form"> */}
+                            {/* <label className="local-top">
                               Avatar <span className="login-danger"></span>
                             </label>
                             <div className="settings-btn upload-files-avator">
@@ -610,7 +597,7 @@ const AddDoctor = () => {
                               <label htmlFor="file" className="upload">
                                 Elegir imagen
                               </label>
-                            </div>
+                            </div> */}
                             {/* <div className="settings-btn upload-files-avator">
                               <input
                                 type="file"
@@ -624,8 +611,8 @@ const AddDoctor = () => {
                                 Choose File
                               </label>
                             </div> */}
-                          </div>
-                        </div>
+                          {/* </div>
+                        </div> */}
                         <div className="col-12 col-md-6 col-xl-6">
                           <div className="form-group select-gender">
                             <label className="gen-label">
@@ -957,8 +944,47 @@ const AddDoctor = () => {
               </div>
             </div>
           </div>
+          <div className="row">
+            <div className="col-sm-12 col-lg-6">
+              {success === 'success'
+                ?
+                <Alert
+                  severity="success"
+                  onClose={() => { setSuccess('initial') }}
+                  sx={{
+                    zIndex: 'tooltip',
+                    position: 'absolute',
+                    bottom: -10,
+                    left: '10%',
+                    width: '80%'
+                  }}
+                  spacing={2}
+                >
+                  El paciente se ha ingresado exitosamente.
+                </Alert>
+
+                : success === 'fail'
+                  ?
+                  <Alert
+                    severity="error"
+                    onClose={() => { setSuccess('initial') }}
+                    sx={{
+                      zIndex: 'tooltip',
+                      position: 'absolute',
+                      bottom: -10,
+                      left: '10%',
+                      width: '80%'
+                    }}
+                    spacing={2}
+                  >
+                    Ha ocurrido un problema. {error}
+                  </Alert>
+                  : ''
+              }
+            </div>
+          </div>
         </div>
-        <div className="card-box">
+        {/* <div className="card-box">
          { statusPetition.warning && <div className="alert alert-danger alert-dismissible fade show" role="alert">
             Un <Link to="#" className="alert-link">problema</Link> ha ocurrido mientras se enviaba la información.
             <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -971,7 +997,7 @@ const AddDoctor = () => {
               <span aria-hidden="true"> </span>
             </button>
           </div>}
-        </div>
+        </div> */}
         {/* {dataDoctor && <div id="delete_patient" className="modal fade delete-modal" role="dialog">
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">

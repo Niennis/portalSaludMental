@@ -2,7 +2,7 @@
 import React from 'react'
 import { Table } from "antd";
 import { onShowSizeChange, itemRender } from '../Pagination'
-import Header from '../Header';
+import Headerudp from '../Headerudp';
 import Sidebar from '../Sidebar';
 import {
   blogimg10, imagesend, pdficon, pdficon3, pdficon4, plusicon, refreshicon, searchnormal, blogimg12,
@@ -12,14 +12,18 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react/build/FeatherIcon';
 import { fetchDoctors, fetchDoctor, addDoctor, updateDoctor } from '../../services/DoctorsServices';
+import { search } from '../../services/AppointmentsServices'
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([])
+  const [results, setResults] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchDoctors()
-      setDoctors(data)
+      const { users } = await fetchDoctors()
+      console.log('DATA', users);
+      setDoctors(users)
+      setResults(users)
     }
     fetchData()
   }, [])
@@ -39,6 +43,16 @@ const DoctorList = () => {
     // console.log(date, dateString);
   };
 
+
+  const handleSearch = (e) => {
+    const bleh = search(doctors, e)
+    setResults(bleh)
+  }
+
+  const handleRefresh = () => {
+    setResults(doctors)
+  }
+
   const columns = [
     {
       title: "Nombre",
@@ -46,7 +60,7 @@ const DoctorList = () => {
       render: (text, record) => (
         <>
           <h2 className="profile-image">
-            { record.img && <Link to="#" className="avatar avatar-sm me-2">
+            {record.img && <Link to="#" className="avatar avatar-sm me-2">
               <img
                 className="avatar-img rounded-circle"
                 src={record.img}
@@ -88,11 +102,11 @@ const DoctorList = () => {
       title: "Email",
       dataIndex: "email",
       sorter: (a, b) => a.email.length - b.email.length
-    }, 
+    },
     {
       title: "Estado",
-      dataIndex: "estado",
-      sorter: (a, b) => a.estado.length - b.estado.length
+      dataIndex: "status",
+      sorter: (a, b) => a.status.length - b.status.length
     },
     {
       title: "",
@@ -115,9 +129,9 @@ const DoctorList = () => {
                   Editar
                 </Link>
                 <Link className="dropdown-item" to="#" data-bs-toggle="modal" data-bs-target="#delete_patient">
-                  <i className="fa fa-trash-alt m-r-5"></i> 
-                  Eliminar 
-                  </Link>
+                  <i className="fa fa-trash-alt m-r-5"></i>
+                  Eliminar
+                </Link>
               </div>
             </div>
           </div>
@@ -129,7 +143,7 @@ const DoctorList = () => {
 
   return (
     <>
-      <Header />
+      <Headerudp />
       <Sidebar id='menu-item1' id1='menu-items1' activeClassName='doctor-list' />
       <>
         <div className="page-wrapper">
@@ -140,14 +154,14 @@ const DoctorList = () => {
                 <div className="col-sm-12">
                   <ul className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to="#">Doctors </Link>
+                      <Link to="#">Profesionales </Link>
                     </li>
                     <li className="breadcrumb-item">
                       <i className="feather-chevron-right">
                         <FeatherIcon icon="chevron-right" />
                       </i>
                     </li>
-                    <li className="breadcrumb-item active">Doctors List</li>
+                    <li className="breadcrumb-item active">Lista Profesionales</li>
                   </ul>
                 </div>
               </div>
@@ -162,14 +176,15 @@ const DoctorList = () => {
                       <div className="row align-items-center">
                         <div className="col">
                           <div className="doctor-table-blk">
-                            <h3>Doctors List</h3>
+                            <h3>Lista Profesionales</h3>
                             <div className="doctor-search-blk">
                               <div className="top-nav-search table-search-blk">
                                 <form>
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Search here"
+                                    placeholder="Busca aquí"
+                                    onChange={(e) => { handleSearch(e.target.value) }}
                                   />
                                   <Link className="btn">
                                     <img
@@ -187,7 +202,7 @@ const DoctorList = () => {
                                   <img src={plusicon} alt="#" />
                                 </Link>
                                 <Link
-                                  to="#"
+                                  onClick={handleRefresh}
                                   className="btn btn-primary doctor-refresh ms-2"
                                 >
                                   <img src={refreshicon} alt="#" />
@@ -215,7 +230,7 @@ const DoctorList = () => {
                     <div className="table-responsive doctor-list">
                       <Table
                         pagination={{
-                          total: doctors.length,
+                          total: results.length,
                           showTotal: (total, range) =>
                             `Showing ${range[0]} to ${range[1]} of ${total} entries`,
                           // showSizeChanger: true,
@@ -223,7 +238,7 @@ const DoctorList = () => {
                           itemRender: itemRender,
                         }}
                         columns={columns}
-                        dataSource={doctors}
+                        dataSource={results}
 
                         rowSelection={rowSelection}
                         rowKey={(record) => record.id}

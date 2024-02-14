@@ -203,6 +203,7 @@
 
   
 import { fetchUser } from './UsersServices'
+import { fetchDoctor } from './DoctorsServices';
 import dayjs from 'dayjs';
 
 export const createAppointment = async (appointment) => {
@@ -284,21 +285,22 @@ export const changeStatusAppointment = async (id, status) => {
 export const fetchAppointments = async (callback) => {
   try {
     const data = await fetch(import.meta.env.VITE_APPOINTMENTS_API + '/api/appintsimple')
+    // const data = await fetch(import.meta.env.VITE_SHOW_APPOINTMENTS)
     const response = await data.json()
     response.forEach(element => {
       element['fecha_cita'] = element['fecha_cita'].slice(0, 10)
     });
 
     const obj = response.map(async date => {
-      const fetchDoctor = await fetchUser(date.id_professional)
+      const doctor = await fetchDoctor(date.id_professional)
       const fetchPatient = await fetchUser(date.id_patient)
       return {
         ...date,
-        nombre_alumno: fetchPatient.nombre + ' ' + fetchPatient.apellido,
-        nombre_profesional: fetchDoctor.nombre + ' ' + fetchDoctor.apellido,
-        telefono_alumno: fetchPatient.telefono,
-        mail_alumno: fetchPatient.email,
-        genero_alumno: fetchPatient.genero
+        nombre_alumno: fetchPatient.users[0].nombre + ' ' + fetchPatient.users[0].apellido,
+        nombre_profesional: doctor.users[0].nombre + ' ' + doctor.users[0].apellido,
+        telefono_alumno: fetchPatient.users[0].telefono,
+        mail_alumno: fetchPatient.users[0].email,
+        genero_alumno: fetchPatient.users[0].genero
       }
     })
     return Promise.all(obj).then(resp => callback(resp))

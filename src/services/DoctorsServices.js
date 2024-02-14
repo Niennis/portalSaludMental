@@ -7,7 +7,8 @@ const formatDate = (date) => {
 }
 
 export const fetchDoctors = async () => {
-  const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals`
+  // const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals`
+  const USERS_API = import.meta.env.VITE_SHOW_PROFESSIONALS
   try {
     const data = await fetch(USERS_API, {
       headers: {
@@ -16,23 +17,29 @@ export const fetchDoctors = async () => {
         'ngrok-skip-browser-warning': 'any'
       }
     })
-    const response = data.json()
+    // const response = data.json()
     // console.log(data.ok, data.status, data.statusText)
-    return response
+    return data.json()
   } catch (err) {
     console.log(err)
   }
 }
 
 export const fetchDoctor = async (id) => {
-  const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals/${id}`
+  
+  // const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals/${id}`
+  const USERS_API = import.meta.env.VITE_SHOW_PROFESSIONALS_BY_ID
   try {
     const data = await fetch(USERS_API, {
+      method: 'POST',
       headers: {
         'content-type': 'application/json',
         'access-control-allow-origin': '*',
         'ngrok-skip-browser-warning': 'any'
-      }
+      },
+      body: JSON.stringify({
+        id
+      })
     })
     return data.json()
   } catch (err) {
@@ -41,21 +48,31 @@ export const fetchDoctor = async (id) => {
 }
 
 export const addDoctor = async (user) => {
-  const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals`
+  // const USERS_API = import.meta.env.VITE_USERS_API + `/api/professionals`
+  const USERS_API = import.meta.env.VITE_CREATE_PROFESSIONAL
   const body = {
     "nombre": user.name,
     "apellido": user.lastName,
-    "telefono": user.mobile,
+    "rut":"16332702-3",
+    "fechaNacimiento": "14-02-1990",
+    "genero": user.gender === 'masculino' ? 'masculino' : user.gender === 'femenino' ? 'femenino' : 'otro',
     "email": user.email,
-    "contrasena": user.password,
-    "fecha_nacimiento": formatDate(user.dateOfBirth.$d),
-    "genero": user.gender,
-    "especialidad": user.speciality.value,
-    "tipo_usuario": 'profesional',
-    "status": user.status
+    "telefono": user.mobile,
+    // "contrasena": user.password,
+    // "especialidad": user.speciality.value,
+    // "tipo_usuario": 'profesional',
+    // "status": user.status,
+    // "campus": 'Sede Centro',
+    "carrera":user.speciality.label,
+    "anoIngresoCarrera":"14-02-2024",
+    "jornada":"laboral",
+    "direccion": "random",
+    "region": "santiago",
+    "comuna": "santiago",
+    "status": user.status,
+    "especialidad":user.speciality.label,
   }
-  console.log(body);
-
+  console.log('body', body);
   try {
     const data = await fetch(USERS_API, {
       method: "POST",

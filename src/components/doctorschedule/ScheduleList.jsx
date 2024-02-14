@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useState } from "react";
-import Header from "../Header";
+import Headerudp from "../Headerudp";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import { Table } from "antd";
@@ -253,7 +253,7 @@ const ScheduleList = () => {
   return (
     <div>
       <>
-        <Header />
+        <Headerudp />
         <Sidebar id='menu-item5' id1='menu-items5' activeClassName='shedule-list' />
         <div className="page-wrapper">
           <div className="content">

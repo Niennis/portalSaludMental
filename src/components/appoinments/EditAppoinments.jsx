@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import Header from "../Header";
+import Headerudp from "../Headerudp";
 import Sidebar from "../Sidebar";
 import { imagesend } from "../imagepath";
 import { DatePicker } from "antd";
@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Select from "react-select";
 import { TextField } from "@mui/material";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useController } from 'react-hook-form';
 import { fetchAppointment, updateAppointment } from "../../services/AppointmentsServices";
 import { fetchDoctors } from "../../services/DoctorsServices";
 import { fetchUsers } from "../../services/UsersServices";
@@ -22,23 +22,52 @@ const EditAppoinments = () => {
   const [endTime, setEndTime] = useState();
   const [show, setShow] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [doctor, setDoctor] = useState([]);
+  // const [doctor, setDoctor] = useState([]);
 
-  const fetchDataDoctors = async () => {
-    const response = await fetchDoctors()
-    const docs = response.map((doc, i) => {
-      return {
-        value: i + 2,
-        label: doc.nombre + ' ' + doc.apellido,
-        id: doc.id
-      }
-    })
-    setDoctor(docs)
-  }
+  // const fetchDataDoctors = async () => {
+  //   const response = await fetchDoctors()
+  //   const docs = response.map((doc, i) => {
+  //     return {
+  //       value: i + 2,
+  //       label: doc.nombre + ' ' + doc.apellido,
+  //       id: doc.id,
+  //       name: doc.nombre + ' ' + doc.apellido
+  //     }
+  //   })
+  //   setDoctor(docs)
+  // }
 
-  useEffect(() => {
-    fetchDataDoctors()
-  }, [])
+
+  const doctor = [
+    {
+      "value": 2,
+      "label": "Juan Perez",
+      "id": 1,
+      "name": "Juan Perez"
+    },
+    {
+      "value": 3,
+      "label": "Patricia Cardenas",
+      "id": 4,
+      "name": "Patricia Cardenas"
+    },
+    {
+      "value": 4,
+      "label": "Andrea Gonzalez Zapata",
+      "id": 6,
+      "name": "Andrea Gonzalez Zapata"
+    },
+    {
+      "value": 5,
+      "label": "Sergio  Andrade",
+      "id": 8,
+      "name": "Sergio  Andrade"
+    }
+  ]
+
+  // useEffect(() => {
+  //   fetchDataDoctors()
+  // }, [])
 
   const { register, handleSubmit, watch, control,
     formState: { errors }
@@ -47,9 +76,14 @@ const EditAppoinments = () => {
       .then(appointment => {
 
         const filterDoc = doctor.filter(doc => doc.label === appointment.nombre_profesional)
-
+        console.log('quesesesto', appointment);
         const obj = {
-          especialidad: appointment.especialidad,
+          especialidad: {
+            "value": "Psiquiatría",
+            "label": "Psiquiatría",
+            "id": 1,
+            "name": "Psiquiatría"
+          },
           appointment_date: dayjs(appointment['fecha_cita']).format('YYYY-MM-DD'),
           start_time: appointment['hora_cita'],
           end_time: appointment['hora_fin'],
@@ -57,7 +91,12 @@ const EditAppoinments = () => {
           email: appointment.mail_alumno,
           name: appointment['nombre_alumno'],
           lastName: appointment['apellido_alumno'],
-          selected_doctor: doctor.filter(doc => doc.label === appointment.nombre_profesional)[0],
+          selected_doctor: {
+            "value": 3,
+            "label": "Patricia Cardenas",
+            "id": 4,
+            "name": "Patricia Cardenas"
+          },
           female: appointment.genero === 'femenino' ? 'on' : null,
           male: appointment.genero === 'masculino' ? 'on' : null,
           other: appointment.genero === 'otro' ? 'on' : null,
@@ -66,6 +105,8 @@ const EditAppoinments = () => {
         return obj
       })
   })
+
+  const { field } = useController({name: 'especialidad', control})
 
   const onChange = (date, dateString) => {
     // console.log(date, dateString);
@@ -91,7 +132,7 @@ const EditAppoinments = () => {
 
   return (
     <div>
-      <Header />
+      <Headerudp />
       <Sidebar
         id="menu-item4"
         id1="menu-items4"
@@ -357,7 +398,7 @@ const EditAppoinments = () => {
                             <label>Doctor</label>
                             <Controller
                               control={control}
-                              name="selected_doctor"
+                              name="Select"
                               {...register('selected_doctor', {
                                 required: {
                                   value: true,
@@ -403,12 +444,69 @@ const EditAppoinments = () => {
                                 )
                               }}
                             />
-                            {/* <select className="form-control select">
-                        <option>Select Doctor</option>
-                        <option>Dr.Bernardo James</option>
-                        <option>Dr.Andrea Lalema</option>
-                        <option>Dr.William Stephin</option>
-                      </select> */}
+
+                            <Controller
+                              control={control}
+                              name="selected_doctor"
+                              {...register('selected_doctor', {
+                                required: {
+                                  value: true,
+                                  message: 'Fecha es requerido',
+                                }
+                              })}
+                              ref={null}
+                              render={({ field: { onChange, onBlur, value } }) =>
+                              (
+                                <select
+                                  className="form-control select"
+                                  defaultValue={value}
+                                // {...register('selected_doctor')}
+                                >
+                                  {
+                                    doctor.map(doc => (
+                                      <option key={doc.id} value={doc.value} name={doc.name}> {doc.label} </option>
+                                    ))
+                                  }
+                                  {/* <option>Seleccione un Doctor</option>
+                              <option>Dr.Bernardo James</option>
+                              <option>Dr.Andrea Lalema</option>
+                              <option>Dr.William Stephin</option> */}
+                                </select>
+                              )
+                              }
+                            />
+                            <Controller
+                              control={control}
+                              name="especialidad"
+                              {...register('especialidad', {
+                                required: {
+                                  value: true,
+                                  message: 'especialidad es requerido',
+                                }
+                              })}
+                              ref={null}
+                              render={({ field: { onChange, onBlur, value } }) => {
+                                console.log('VALUE', value);
+                                return (
+                                  <select
+                                    className="form-control select"
+                                    defaultValue={value}
+                                  // {...register('selected_doctor')}
+                                  >
+                                    {/* {
+                                    doctor.map(doc => (
+                                      <option key={doc.id} value={doc.value} name={doc.name}> {doc.label} </option>
+                                    ))
+                                  } */}
+                                    <option>Seleccione una especialidad</option>
+                                    <option name='Psicología' value='Psicología' label="Psicología">Psicología</option>
+                                    <option name='Psiquiatría' value='Psiquiatría' label="Psiquiatría">Psiquiatría</option>
+                                    <option name='Psicopedagoía' value='Psicopedagoía' label="Psicopedagoía">Psicopedagoía</option>
+                                  </select>
+                                )
+                              }
+                              }
+                            />
                           </div>
                         </div>
                         <div className="col-12 col-md-6 col-xl-6">

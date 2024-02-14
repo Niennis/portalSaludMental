@@ -4,7 +4,7 @@ import { CircleRounded } from "@mui/icons-material";
 import { ChevronLeftRounded, ChevronRightOutlined } from "@mui/icons-material";
 import { Grid, Box } from "@mui/material";
 
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides, matches }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [title, setTitle] = useState(slides[0].title)
   const [content, setContent] = useState(slides[0].content)
@@ -21,14 +21,14 @@ const ImageSlider = ({ slides }) => {
   const slideStyles = {
     backgroundImage: `url(${slides[currentIndex].image})`,
     width: '100svw',
-    height: 300,
+    height: 384,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
   }
 
   const leftArrowStyles = {
     position: 'absolute',
-    top: '15%',
+    top: '200px',
     transform: 'translate(0, -50%)',
     left: '32px',
     color: 'white',
@@ -41,7 +41,7 @@ const ImageSlider = ({ slides }) => {
 
   const righttArrowStyles = {
     position: 'absolute',
-    top: '15%',
+    top: '200px',
     transform: 'translate(0, -50%)',
     right: '32px',
     color: 'white',
@@ -92,10 +92,30 @@ const ImageSlider = ({ slides }) => {
     setIdBlog(slides[slideIndex].id)
   }
 
+  const boxStyleDesktop = {
+    border: '1px solid #333',
+    width: '85svw',
+    borderRadius: '32px',
+    padding: '24px 16px',
+    textWrap: 'pretty',
+    margin: '-270px auto 30px',
+    backgroundColor: '#ffffff',
+    opacity: 0.75
+  }
+  
+  const boxStyleMobile = {
+    border: '1px solid #333',
+    width: '90svw',
+    borderRadius: '32px',
+    padding: '24px 16px',
+    textWrap: 'pretty',
+    margin: '36px auto'
+  }
+
   return (
     <div style={sliderStyles}>
-      <div style={leftArrowStyles} onClick={goToPrevious}> <ChevronLeftRounded /></div>
-      <div style={righttArrowStyles} onClick={goToNext}> <ChevronRightOutlined /></div>
+      {matches && <div style={leftArrowStyles} onClick={goToPrevious}> <ChevronLeftRounded /></div>}
+      {matches && <div style={righttArrowStyles} onClick={goToNext}> <ChevronRightOutlined /></div>}
       <div style={slideStyles}></div>
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
@@ -107,18 +127,11 @@ const ImageSlider = ({ slides }) => {
           </div>
         ))}
       </div>
-      <Box sx={{
-        border: '1px solid #333',
-        width: '90svw',
-        borderRadius: '32px',
-        padding: '24px 16px',
-        textWrap: 'pretty',
-        margin: '36px auto 0'
-      }}>
+      <Box sx={ matches ? boxStyleDesktop : boxStyleMobile}>
         <div className="row" >
           <div className="col-sm-12 sailec">
-            <h2 style={{fontSize: '40px', fontWeight:700, lineHeight:'40px'}}>{title}</h2>
-            <p style={{fontSize: '24px', fontWeight:400, lineHeight:'32px'}}>{content.slice(0, 205)}</p>
+            <h2 style={{fontSize: '30px', fontWeight:700, lineHeight:'40px'}}>{title}</h2>
+            <p style={{fontSize: '20px', fontWeight:400, lineHeight:'32px'}}>{content.slice(0, 205)}</p>
             <Grid
               container
               direction="row"
@@ -145,7 +158,7 @@ const ImageSlider = ({ slides }) => {
             style={dotStyles}
             onClick={() => goToSlide(slideIndex)}
           >
-            <CircleRounded sx={{ fontSize: '16px', margin:'24px 0', color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
+            <CircleRounded sx={{ fontSize: '16px', margin:'40px 0 0 0', color: slideIndex === currentIndex ? '#B82925' : '#FF5253' }} />
           </div>
         ))}
       </div>

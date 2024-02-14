@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import { Table } from 'antd';
-import Header from '../Header';
+import Headerudp from '../Headerudp';
 import Sidebar from '../Sidebar';
 import {
   imagesend, pdficon, pdficon3, pdficon4, plusicon, refreshicon, searchnormal
@@ -140,7 +140,7 @@ const AppoinmentList = () => {
 
   return (
     <>
-      <Header />
+      <Headerudp />
       <Sidebar id='menu-item4' id1='menu-items4' activeClassName='appoinment-list' />
       <>
         <div className="page-wrapper">

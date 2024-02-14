@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { Today } from '@mui/icons-material';
 import { LinkedIn, Facebook, Instagram, Twitter, YouTube, LocationOnSharp } from '@mui/icons-material';
+import ReserveBtn from './ReserveBtn';
 
 const Footer = () => {
 
@@ -55,9 +56,7 @@ const Footer = () => {
         <p style={{ fontFamily: 'lato', fontWeight: 400, fontSize: '14px', lineHeight: '21px' }}>
           Si necesitas ayuda, contáctanos y te ayudaremos.
         </p>
-        <button className='btn btn-rounded seilac' style={{ margin: '0 0 10px 10px', background: '#FF5253', color: '#fff', padding: '8px 20px', fontFamily: 'lato', fontWeight: 700, fontSize: '14px', lineHeight: '20px', letterSpacing: '0.5%' }}>
-          <Today /> Reservar
-        </button>
+        <ReserveBtn text={'Reservar'} bgColor={'#FF5253'} color={'#fff'} />
       </div>
       <div className="content text-center" style={{ margin: '20px' }}>
         <div className="row">
@@ -75,10 +74,10 @@ const Footer = () => {
       <div className="content text-center" style={{ padding: 0, backgroundColor: '#F1F1F1', borderRadius: '8px 8px 0 0', marginTop: '10px' }}>
         <div className="row">
           <div className="col-sm-12 patient-visit">
-            <p style={{ fontSize: '14px', lineHeight: '21px', padding: '16px 16px 0 16px' }}> 
-              <LocationOnSharp /> Av. Manuel Rodríguez 343, Santiago, Región 
+            <p style={{ fontSize: '14px', lineHeight: '21px', padding: '16px 16px 0 16px' }}>
+              <LocationOnSharp /> Av. Manuel Rodríguez 343, Santiago, Región
               Metropolitana
-              </p>
+            </p>
             <div
               className="row"
               style={{
